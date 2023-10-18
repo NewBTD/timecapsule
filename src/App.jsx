@@ -9,7 +9,7 @@ function App() {
 
   useEffect(() => {
     const apiUrl =
-      "https://45e5-124-121-138-221.ngrok-free.app/api/timecapsules"; // Replace with your API URL
+      "https://0f62-124-121-138-221.ngrok-free.app/api/timecapsules"; // Replace with your API URL
     fetch(apiUrl)
       .then((response) => {
         if (!response.ok) {
