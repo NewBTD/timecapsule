@@ -13,6 +13,7 @@ import { DateTimePicker } from "@mui/x-date-pickers";
 import Grid from "@mui/material/Unstable_Grid2";
 import { useState } from "react";
 import axios from "axios";
+import { LoadingButton } from "@mui/lab";
 
 function InputForm() {
   const [formData, setFormData] = useState({
@@ -20,6 +21,8 @@ function InputForm() {
     contents: "",
     openDate: new Date(),
   });
+
+  const [formLoading, setFormLoading] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -34,6 +37,7 @@ function InputForm() {
   };
 
   const handleSubmit = (e) => {
+    setFormLoading(true);
     e.preventDefault();
     // Create a data object to send to the server
     const postData = {
@@ -45,11 +49,12 @@ function InputForm() {
     // Replace the URL with your API endpoint
     axios
       .post(
-        "https://0f62-124-121-138-221.ngrok-free.app/api/timecapsules/send-email/1",
+        "https://0f62-124-121-138-221.ngrok-free.app/api/timecapsules",
         postData
       )
       .then((response) => {
         // Handle a successful response from the server
+        setFormLoading(false);
         console.log("Post successful:", response.data);
       })
       .catch((error) => {
@@ -66,7 +71,7 @@ function InputForm() {
             <textarea
               onChange={handleInputChange}
               name="contents"
-              className="w-full p-2 text-gray-700 border rounded-md focus:outline-none focus:ring focus:border-blue-500"
+              className="w-full p-2 text-gray-700 border border-neutral-700 rounded-md focus:outline-none focus:ring focus:border-blue-500"
               rows="20"
               placeholder="Enter your text here"
             ></textarea>
@@ -91,9 +96,20 @@ function InputForm() {
                     },
                   }}
                 ></Input>
-                <Button onClick={handleSubmit} variant="contained">
+                <LoadingButton
+                  onClick={handleSubmit}
+                  loading={formLoading}
+                  variant="contained"
+                >
                   ส่งต่อสู่อนาคต
-                </Button>
+                </LoadingButton>
+                {/* {formLoading ? (
+                  <LoadingButton />
+                ) : (
+                  <Button onClick={handleSubmit} variant="contained">
+                    ส่งต่อสู่อนาคต
+                  </Button>
+                )} */}
               </Stack>
             </FormControl>
           </Grid>
