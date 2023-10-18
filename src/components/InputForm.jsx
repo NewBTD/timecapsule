@@ -49,7 +49,7 @@ function InputForm() {
     // Replace the URL with your API endpoint
     axios
       .post(
-        "https://0f62-124-121-138-221.ngrok-free.app/api/timecapsules",
+        "https://0f62-124-121-138-221.ngrok-free.app/api/timecapsules/send-email",
         postData
       )
       .then((response) => {
